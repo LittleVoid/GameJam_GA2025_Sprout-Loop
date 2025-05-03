@@ -64,17 +64,17 @@ public class TriggerArea : MonoBehaviour
 
     private void OnObjectEnter(GameObject obj)
     {
-        Debug.Log("ENTER: "+obj.name+"}");
+        
     }
 
     private void OnObjectStay(GameObject obj)
     {
-        Debug.Log("STAY: " + obj.name + "}");
+        
     }
 
     private void OnObjectExit(GameObject obj)
     {
-        Debug.Log("EXIT: " + obj.name + "}");
+        
     }
 
     private void OnDrawGizmosSelected()

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displaySprite: {fileID: 0}
   displayName: Jumpy
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 3822031930463505704, guid: 43a15eb8935de6d40858b1047782cc04, type: 3}

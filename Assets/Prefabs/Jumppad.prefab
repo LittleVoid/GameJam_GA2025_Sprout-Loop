@@ -187,6 +187,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 4e420df38b88b4b46ae4b99455a75895, type: 2}
+  placementDistance: 1
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &6133220714407620193
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 772901b34ebdb5e4c91df60e3ea93104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AlwaysPerformCheck: 1
   boxSize: {x: 1, y: 0.24, z: 1}
   boxOffset: {x: 0, y: 0, z: 0}
   triggerLayer:

@@ -8,6 +8,11 @@ public class Plant_Base_SO : ScriptableObject {
 
     public virtual void Use(Vector3 pos)
     {
-        GameObject go = Instantiate(Prefab,PlantSpawnPrefabAnchor.GetParent());
+        GameObject go = Instantiate(Prefab,pos,Quaternion.identity,PlantSpawnPrefabAnchor.GetParent());
+    }
+
+    public virtual bool CanPlace(Vector3 pos)
+    {
+        return Prefab.GetComponent<Plant_Base_Env>().CanPlaceOn(pos);
     }
 }

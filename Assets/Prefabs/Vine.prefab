@@ -187,6 +187,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: feeb4c2cc9210f94da192c9819ed9a47, type: 2}
+  placementDistance: 1
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 128
   MaxLength: 10
   Growspeed: 1
   GrowObject: {fileID: 6693662380336152082}

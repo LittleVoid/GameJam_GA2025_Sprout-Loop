@@ -2,15 +2,15 @@
 
 public class Jumppad_Plant_Env : Plant_Base_Env
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    Vector3 placementStartOffset = Vector3.up * 0.2f;
+    protected override void OnPlacement()
     {
-        
+        TryPlaceOn(transform.position + placementStartOffset, Vector3.down, placementDistance, placementLayer, transform, Quaternion.identity);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override bool CanPlaceOn(Vector3 startpoint)
     {
-        
+        return CanPlaceOn(startpoint + placementStartOffset, Vector3.down, placementDistance, placementLayer, transform, Quaternion.identity);
     }
 }

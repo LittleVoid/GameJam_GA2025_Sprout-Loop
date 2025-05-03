@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displaySprite: {fileID: 0}
   displayName: Nutty
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 1421788613415768371, guid: 69802b1c723ea2f468e362de99f17051, type: 3}
