@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - Player
-  - Environment
-  - 
-  - 
-  - 
+  - Environment/Ground
+  - Environment/Wall
+  - Environment/Water
+  - Environment/Plant
   - 
   - 
   - 

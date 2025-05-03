@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TriggerArea : MonoBehaviour
 {
+    public bool AlwaysPerformCheck = true;
+
     public Vector3 boxSize = new Vector3(5, 5, 5);      
     public Vector3 boxOffset = Vector3.zero;            
     public LayerMask triggerLayer;
@@ -16,10 +18,12 @@ public class TriggerArea : MonoBehaviour
 
     void Update()
     {
-        PerformBoxCheck();
+        if(AlwaysPerformCheck)
+            PerformBoxCheck();
     }
 
-    private void PerformBoxCheck()
+    //can be used as always update or call perform check to get results;
+    public List<GameObject> PerformBoxCheck()
     {
         Vector3 center = transform.position + transform.rotation * boxOffset;
         Collider[] hits = Physics.OverlapBox(center, boxSize * 0.5f, transform.rotation, triggerLayer);
@@ -55,6 +59,7 @@ public class TriggerArea : MonoBehaviour
                 onTriggerExit?.Invoke(obj);
             }
         }
+        return newObjects;
     }
 
     private void OnObjectEnter(GameObject obj)
