@@ -145,13 +145,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122039372709687532}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.195994, w: 0.9806051}
-  m_LocalPosition: {x: 0.391, y: -0.165, z: 0}
+  m_LocalRotation: {x: 0.19574729, y: 0.9793702, z: -0.00983307, w: -0.04919729}
+  m_LocalPosition: {x: 0.14, y: -0.165, z: 0.03}
   m_LocalScale: {x: 1, y: 0.06996, z: 0.032978}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1551538876950196615}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 22.606}
+  m_LocalEulerAnglesHint: {x: 0, y: 185.752, z: 22.606}
 --- !u!33 &3276090950479692174
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ Transform:
   m_GameObject: {fileID: 2156143355732622809}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.75, y: 0, z: 0}
+  m_LocalPosition: {x: -0.614, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.06996, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -360,6 +360,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 20d9b0a12c9fc0240bcc59ba0fd68ac1, type: 2}
+  placementDistance: 1
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 0
   wallGO: {fileID: 8378620995334905399}
   waterGO: {fileID: 1621917209436622715}
   waterLayer:

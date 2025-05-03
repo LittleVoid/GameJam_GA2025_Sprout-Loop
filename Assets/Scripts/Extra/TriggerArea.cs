@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerArea : MonoBehaviour
 {
     public bool AlwaysPerformCheck = true;
 
+    public bool useBoxColliderSize;
     public Vector3 boxSize = new Vector3(5, 5, 5);      
-    public Vector3 boxOffset = Vector3.zero;            
+    public Vector3 boxOffset = Vector3.zero;  
+    
+
     public LayerMask triggerLayer;
 
     public List<GameObject> currentObjects = new List<GameObject>();
@@ -15,6 +19,11 @@ public class TriggerArea : MonoBehaviour
     public Action<GameObject> onTriggerEnter;
     public Action<GameObject> onTriggerExit;
     public Action<GameObject> onTriggerStay;
+
+    public UnityEvent<GameObject> onTriggerEnterUE;
+    public UnityEvent<GameObject> onTriggerStayUE;
+    public UnityEvent<GameObject> onTriggerExitUE;
+
 
     void Update()
     {
@@ -37,14 +46,12 @@ public class TriggerArea : MonoBehaviour
 
             if (!currentObjects.Contains(obj))
             {
-                OnObjectEnter(obj);
                 currentObjects.Add(obj);
-                onTriggerEnter?.Invoke(obj);
+                OnObjectEnter(obj);
             }
             else
             {
                 OnObjectStay(obj);
-                onTriggerStay?.Invoke(obj);
             }
         }
 
@@ -53,10 +60,10 @@ public class TriggerArea : MonoBehaviour
             var obj = currentObjects[i];
             if (!newObjects.Contains(obj))
             {
-                OnObjectExit(obj);
                 currentObjects.Remove(obj);
                 i--;
-                onTriggerExit?.Invoke(obj);
+                OnObjectExit(obj);
+
             }
         }
         return newObjects;
@@ -64,17 +71,20 @@ public class TriggerArea : MonoBehaviour
 
     private void OnObjectEnter(GameObject obj)
     {
-        Debug.Log("ENTER: "+obj.name+"}");
+        onTriggerEnter?.Invoke(obj);
+        onTriggerEnterUE.Invoke(obj);
     }
 
     private void OnObjectStay(GameObject obj)
     {
-        Debug.Log("STAY: " + obj.name + "}");
+        onTriggerStay?.Invoke(obj);
+        onTriggerStayUE?.Invoke(obj);
     }
 
     private void OnObjectExit(GameObject obj)
     {
-        Debug.Log("EXIT: " + obj.name + "}");
+        onTriggerExit?.Invoke(obj);
+        onTriggerExitUE.Invoke(obj);
     }
 
     private void OnDrawGizmosSelected()
@@ -83,5 +93,12 @@ public class TriggerArea : MonoBehaviour
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position + transform.rotation * boxOffset, transform.rotation, boxSize);
         Gizmos.matrix = rotationMatrix;
         Gizmos.DrawCube(Vector3.zero, Vector3.one);
+
+
+        if (useBoxColliderSize)
+        {
+            boxSize = GetComponent<BoxCollider>().size;
+            boxSize.Scale(transform.localScale);
+        }
     }
 }

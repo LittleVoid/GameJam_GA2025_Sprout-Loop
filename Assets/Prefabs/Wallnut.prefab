@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 1a8d19c15a36ab04bb58c9d52eabedbe, type: 2}
+  placementDistance: 1
+  placementLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &7893789110913680051
 Rigidbody:
   m_ObjectHideFlags: 0
