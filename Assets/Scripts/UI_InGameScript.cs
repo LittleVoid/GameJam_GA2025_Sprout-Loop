@@ -2,21 +2,38 @@
 
 
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_InGameScript : MonoBehaviour
 {
+    UI_InGameScript inGameUI;
     TMP_Text Counter_Text, Header_Text, Subline_Text, ScoreValue_Text;
-    GameObject Pause_GameOver_Panel, Score_Panel;
+    GameObject Pause_GameOver_Panel, Score_Panel, QuitGame_Panel;
     Button Continue, NextLevel, TryAgain, Settings, MainMenu, Quit;
     Slider Timer_Slider;
     float TimeLeft, MaxTime;
 
+    int currentSceneIndex;
+
     void Awake()
     {
+        if (inGameUI != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            inGameUI = GameObject.Find("inGameUI").GetComponent<UI_InGameScript>();
+            Debug.Assert(inGameUI != null, "NO UI FOUND!!!");
+        }
+        DontDestroyOnLoad(this.gameObject);
+
         Pause_GameOver_Panel = transform.Find("Pause_GameOver_Panel").gameObject;
         Score_Panel = Pause_GameOver_Panel.transform.Find("Notification_Panel/Score_Panel").gameObject;
+        QuitGame_Panel = Pause_GameOver_Panel.transform.Find("QuitGame_Panel").gameObject;
         Counter_Text = transform.Find("LoopCounter_Panel/Counter_Text").GetComponent<TMP_Text>();
         Header_Text = Pause_GameOver_Panel.transform.Find("Notification_Panel/Header_Text").GetComponent<TMP_Text>();
         Subline_Text = Pause_GameOver_Panel.transform.Find("Notification_Panel/Subline_Text").GetComponent<TMP_Text>();
@@ -28,11 +45,12 @@ public class UI_InGameScript : MonoBehaviour
         Settings = transform.Find("Button_Panel/Settings").GetComponent<Button>();
         MainMenu = transform.Find("Button_Panel/MainMenu").GetComponent<Button>();
         Quit = transform.Find("Button_Panel/Quit").GetComponent<Button>();
+
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
-    public void StartLevel( float maxTime)
+    public void StartNextLevel( float maxTime)
     {
-        Time.timeScale = 1.0f;
         MaxTime = maxTime;
         TimeLeft = maxTime;
     }
@@ -46,6 +64,7 @@ public class UI_InGameScript : MonoBehaviour
         Counter_Text.text = counter.ToString();
     }
 
+    //Call this once in the main Update function
     public void UpdateTimer()
     {
         TimeLeft -= Time.deltaTime;
@@ -55,7 +74,7 @@ public class UI_InGameScript : MonoBehaviour
     public void OpenPauseMenu()
     {
         Time.timeScale = 0.0f;
-        ActivateAllButtons();
+        SetButtonsAndPanels();
         NextLevel.gameObject.SetActive(false);
         Header_Text.text = "Pause";
         Subline_Text.text = "Everyone needs a break uwu";
@@ -71,7 +90,7 @@ public class UI_InGameScript : MonoBehaviour
     public void OpenWinScreen( string input)
     {
         Time.timeScale = 0.0f;
-        ActivateAllButtons();
+        SetButtonsAndPanels();
         Continue.gameObject.SetActive(false);
         TryAgain.gameObject.SetActive(false);
         //ScoreValue_Text.text = input;
@@ -84,21 +103,52 @@ public class UI_InGameScript : MonoBehaviour
     public void OpenLooseScreen(string input)
     {
         Time.timeScale = 0.0f;
-        ActivateAllButtons();
+        SetButtonsAndPanels();
         Continue.gameObject.SetActive(false);
         Header_Text.text = input;
         Subline_Text.text = ":/ That did not go so well";
         Pause_GameOver_Panel.SetActive(true);
     }
 
-    private void ActivateAllButtons()
+    private void SetButtonsAndPanels()
     {
+        Settings.gameObject.SetActive(false); //Settings deactivated until further notice
+        Score_Panel.gameObject.SetActive(false); //Score deactivated until further notice
+        QuitGame_Panel.SetActive(false);
         Continue.gameObject.SetActive(true);
         NextLevel.gameObject.SetActive(true);
         TryAgain.gameObject.SetActive(true);
-        Settings.gameObject.SetActive(true);
         MainMenu.gameObject.SetActive(true);
         Quit.gameObject.SetActive(true);
-        Score_Panel.gameObject.SetActive(false);
+    }
+
+    public void LoadNextLevel() 
+    {
+        SceneManager.LoadScene(currentSceneIndex++);
+    }
+
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+
+    public void OpenQuitGameDialogue()
+    {
+        QuitGame_Panel.SetActive(true);
+    }
+
+    public void CloseQuitGameDialogue()
+    {
+        QuitGame_Panel.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
