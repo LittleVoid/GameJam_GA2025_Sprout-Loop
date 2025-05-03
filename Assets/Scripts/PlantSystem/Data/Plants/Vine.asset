@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displaySprite: {fileID: 0}
   displayName: Viny
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 4096441774475125072, guid: ffd5fd2df45be9d4f93ad8dc5b680f52, type: 3}
