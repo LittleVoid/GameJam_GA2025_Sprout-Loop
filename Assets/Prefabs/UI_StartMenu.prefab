@@ -420,7 +420,7 @@ GameObject:
   - component: {fileID: 3834333566348937862}
   - component: {fileID: 8832492487835559526}
   m_Layer: 5
-  m_Name: Developer_05_Panel
+  m_Name: Julian
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -686,7 +686,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Art
+  m_text: Art, 3D
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 6404074307257403876}
   - component: {fileID: 2624542984976416240}
   m_Layer: 5
-  m_Name: Developer_01_Panel
+  m_Name: Bennie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1246,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Code
+  m_text: Production
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1909,9 +1909,9 @@ RectTransform:
   - {fileID: 7278135161286296496}
   m_Father: {fileID: 6616713143964544027}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 325}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1930454393738177201
@@ -2559,7 +2559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Art
+  m_text: Art, Texturing
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3045,7 +3045,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: UI
+  m_text: UI, Audio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3128,7 +3128,7 @@ GameObject:
   - component: {fileID: 1192770430484986070}
   - component: {fileID: 597771857623802531}
   m_Layer: 5
-  m_Name: Developer_03_Panel
+  m_Name: Micha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3610,7 +3610,7 @@ GameObject:
   - component: {fileID: 2797257756680256245}
   - component: {fileID: 6365156107185566515}
   m_Layer: 5
-  m_Name: Developer_04_Panel
+  m_Name: Domi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3953,7 +3953,7 @@ GameObject:
   - component: {fileID: 2440065284054060566}
   - component: {fileID: 516556253442171128}
   m_Layer: 5
-  m_Name: Developer_06_Panel
+  m_Name: Marius
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4219,7 +4219,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Code
+  m_text: 'Code, Concept Art
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4307,7 +4309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6616713143964544027
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4635,7 +4637,7 @@ GameObject:
   - component: {fileID: 1104531833878536775}
   - component: {fileID: 8793733209016259552}
   m_Layer: 5
-  m_Name: Developer_07_Panel
+  m_Name: Tony
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5229,7 +5231,7 @@ GameObject:
   - component: {fileID: 7917186949183584292}
   - component: {fileID: 1698980470618907682}
   m_Layer: 5
-  m_Name: Developer_02_Panel
+  m_Name: Lele
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
