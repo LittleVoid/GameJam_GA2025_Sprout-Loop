@@ -7,6 +7,7 @@ public class TriggerArea : MonoBehaviour
 {
     public bool AlwaysPerformCheck = true;
 
+    public bool useBoxColliderSize;
     public Vector3 boxSize = new Vector3(5, 5, 5);      
     public Vector3 boxOffset = Vector3.zero;  
     
@@ -22,6 +23,7 @@ public class TriggerArea : MonoBehaviour
     public UnityEvent<GameObject> onTriggerEnterUE;
     public UnityEvent<GameObject> onTriggerStayUE;
     public UnityEvent<GameObject> onTriggerExitUE;
+
 
     void Update()
     {
@@ -91,5 +93,12 @@ public class TriggerArea : MonoBehaviour
         Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position + transform.rotation * boxOffset, transform.rotation, boxSize);
         Gizmos.matrix = rotationMatrix;
         Gizmos.DrawCube(Vector3.zero, Vector3.one);
+
+
+        if (useBoxColliderSize)
+        {
+            boxSize = GetComponent<BoxCollider>().size;
+            boxSize.Scale(transform.localScale);
+        }
     }
 }
