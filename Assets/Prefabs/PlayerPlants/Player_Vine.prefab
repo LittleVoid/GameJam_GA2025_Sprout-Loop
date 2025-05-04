@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3916456834375013352}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.39, y: -0.83, z: 0}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -155,6 +155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player_Vine
       objectReference: {fileID: 0}
+    - target: {fileID: 5575346112093306758, guid: 705ed30a1d3f03f4cab69df404b51738, type: 3}
+      propertyPath: _amature
+      value: 
+      objectReference: {fileID: 6244898476973127129}
     - target: {fileID: 5575346112093306758, guid: 705ed30a1d3f03f4cab69df404b51738, type: 3}
       propertyPath: _animator
       value: 
