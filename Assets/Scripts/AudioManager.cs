@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     private AudioManager audioManager;
     private AudioSource backgroundPlayer, SFXPlayer;
 
-    [SerializeField] AudioClip MainMenu, Level, PauseMenu;
+    [SerializeField] AudioClip MainMenu, Level, PauseMenu, Win;
     [SerializeField] List<AudioClip> Clicks;
     [SerializeField] AudioClip Splash, Jump, Grow, Sprout, Whoosh, Victory, GameOver;
 
@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
                 backgroundPlayer.clip = MainMenu;
                 break;
             case "Win":
-                backgroundPlayer.Stop();
+                backgroundPlayer.clip = Win;
                 break;
             case "Lose":
                 backgroundPlayer.Stop();

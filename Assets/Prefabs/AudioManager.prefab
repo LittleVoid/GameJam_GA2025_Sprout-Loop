@@ -138,7 +138,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 900949738323275019}
-  - component: {fileID: 9147226019813633991}
+  - component: {fileID: 6377100373130063795}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -163,7 +163,7 @@ Transform:
   - {fileID: 6662337183106207803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9147226019813633991
+--- !u!114 &6377100373130063795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,22 +172,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1854854923212124734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee0a66147b92e247b0c39bfcd79a2a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f2be55089d3d2a4ca97dc9da9baafd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MainMenu: {fileID: 8300000, guid: 90174465ff726964ab9253a52e5011de, type: 3}
   Level: {fileID: 8300000, guid: d7703783bfbeb624ea1411469624d478, type: 3}
   PauseMenu: {fileID: 8300000, guid: 6512d005d961aeb45bf62b0e3f7984cb, type: 3}
+  Win: {fileID: 8300000, guid: b1c53f7ede63d434f8a4ee0077d37fa6, type: 3}
   Clicks:
+  - {fileID: 8300000, guid: fb2ad0c283e5d2741b12c8a9eb9ba55d, type: 3}
   - {fileID: 8300000, guid: a0d9cdc4cf0be144e929d4806ed7b3a7, type: 3}
   - {fileID: 8300000, guid: fb2ad0c283e5d2741b12c8a9eb9ba55d, type: 3}
-  - {fileID: 8300000, guid: 08fc324077183cc479f1358e99bbb4cb, type: 3}
-  - {fileID: 8300000, guid: ce73dd9bda062cb4384e16e018ba3172, type: 3}
-  - {fileID: 8300000, guid: ce73dd9bda062cb4384e16e018ba3172, type: 3}
+  - {fileID: 8300000, guid: cd4a76512a543f0409bcaa0598f9c58e, type: 3}
   Splash: {fileID: 8300000, guid: 8eaeae0a8d85f1447a846996833594cf, type: 3}
   Jump: {fileID: 8300000, guid: e0487f33b7022564d99bdfe2853c9500, type: 3}
   Grow: {fileID: 8300000, guid: e70ae737636f0a149801df399c1ae7d2, type: 3}
-  Sprout: {fileID: 8300000, guid: cd4a76512a543f0409bcaa0598f9c58e, type: 3}
+  Sprout: {fileID: 8300000, guid: ce73dd9bda062cb4384e16e018ba3172, type: 3}
   Whoosh: {fileID: 8300000, guid: 21d8b0c945e8d904fab63559ef0a3130, type: 3}
   Victory: {fileID: 8300000, guid: e5b8123b8515fc7488e77e0b7c5a5337, type: 3}
   GameOver: {fileID: 8300000, guid: 686f23ee65a3211478ccfe68a003aa3a, type: 3}
