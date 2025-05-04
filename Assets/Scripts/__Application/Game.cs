@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    AudioManager audioManager;
+
     private readonly InputSource _inputSource = new();
     private int _currentPlantIndex;
 
@@ -45,6 +47,8 @@ public class Game : MonoBehaviour
     #region gamestate start/stop
     public void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
         _timeLeft = _plantTimes[0];
         _ingameUI.StartNextLevel(_timeLeft);
 
@@ -73,6 +77,9 @@ public class Game : MonoBehaviour
             _isPlaying = false;
             _inputSource.Disable();
             _plantPreset[_currentPlantIndex].Stop();
+
+            audioManager.SelectBackgroundMusic("Lose");
+            audioManager.PlaySFX("GameOver");
         }
     }
 
@@ -84,6 +91,9 @@ public class Game : MonoBehaviour
             _isPlaying = false;
             _inputSource.Disable();
             _plantPreset[_currentPlantIndex].Stop();
+
+            audioManager.SelectBackgroundMusic("Win");
+            audioManager.PlaySFX("Victory");
         }
     }
     #endregion gamestate start/stop

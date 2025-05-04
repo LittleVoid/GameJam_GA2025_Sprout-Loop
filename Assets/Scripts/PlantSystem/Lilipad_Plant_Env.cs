@@ -52,6 +52,7 @@ public class Lilipad_Plant_Env : Plant_Base_Env
 
     public override bool CanPlaceAtPosition(Vector3 startpoint)
     {
+        audioManager.PlaySFX("Splash");
         return CanPlaceAtPositionInternal(startpoint + waterPlacementStartOffset, Vector3.down, placementDistance, waterLayer) ||
            CanPlaceAtPositionInternal(startpoint, Vector3.left, placementDistance, wallLayer) ||
            CanPlaceAtPositionInternal(startpoint, Vector3.right, placementDistance, wallLayer);

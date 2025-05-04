@@ -11,6 +11,7 @@ public class Jumppad_Plant_Env : Plant_Base_Env
 
     public override bool CanPlaceAtPosition(Vector3 startpoint)
     {
+        audioManager.PlaySFX("Sprout");
         return CanPlaceAtPositionInternal(startpoint + placementStartOffset, Vector3.down, placementDistance, placementLayer);
     }
 }

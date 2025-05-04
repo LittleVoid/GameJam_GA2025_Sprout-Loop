@@ -20,6 +20,7 @@ public class Vine_Plant_Env : Plant_Base_Env
     [Button]
     public override bool CanPlaceAtPosition(Vector3 startpoint)
     {
+        audioManager.PlaySFX("Grow");
         return CanPlaceAtPositionInternal(startpoint + placementOffset, Vector3.down, placementDistance, placementLayer);
     }
 }

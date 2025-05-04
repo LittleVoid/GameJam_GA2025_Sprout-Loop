@@ -1,10 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class PlantCharacterController : MonoBehaviour
 {
+    AudioManager audioManager;
+
     #region Definitions
     public enum Characterstates
     {
@@ -81,6 +83,8 @@ public class PlantCharacterController : MonoBehaviour
         _app = app;
         _rb.freezeRotation = true;
         _rb.gravityScale = 0;
+
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     #region Inputs
@@ -338,6 +342,8 @@ public class PlantCharacterController : MonoBehaviour
         // without double jump we don't need to worry about upward velocity correction...
         float rawVelocity = Mathf.Sqrt(-2 * _settings.JumpHeight * _settings.GravityUp);
         _rb.linearVelocityY = rawVelocity;
+
+        audioManager.PlaySFX("Jump");
     }
 
     internal void SuperJump()
@@ -353,6 +359,7 @@ public class PlantCharacterController : MonoBehaviour
         _characterstate = Characterstates.Airborne;
 
         OnCharacterStateChanged?.Invoke(new(old, _characterstate));
+        audioManager.PlaySFX("Whoosh");
     }
 
     internal void Stop()
