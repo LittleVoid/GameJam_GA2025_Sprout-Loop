@@ -55,6 +55,7 @@ public class PlantCharacterController : MonoBehaviour
 
     [Header("Serialized for debug purposes. DO NOT mess around with this.")]
     [SerializeField] private Characterstates _characterstate = Characterstates.GroundedLocomotion;
+    public Characterstates State => _characterstate;
 
     /// <summary>
     /// Event for the Animator to listen to. Allows to develop movement and animation completely separately.
