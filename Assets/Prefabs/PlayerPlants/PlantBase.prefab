@@ -171,7 +171,7 @@ MonoBehaviour:
     m_Bits: 128
   _climbLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2048
 --- !u!114 &8382525963367489654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +220,7 @@ MonoBehaviour:
   _plantCharacterController: {fileID: 1445804698814159177}
   _animator: {fileID: 0}
   _rb: {fileID: 5536094795364918451}
+  _amature: {fileID: 0}
 --- !u!1 &7552833704411611547
 GameObject:
   m_ObjectHideFlags: 0
