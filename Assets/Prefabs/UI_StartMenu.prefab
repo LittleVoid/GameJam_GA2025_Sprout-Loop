@@ -3258,7 +3258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Credit_Panel: {fileID: 7295700107584176270}
-  QuitGame_Panel: {fileID: 0}
+  QuitGame_Panel: {fileID: 2218713118053110464}
 --- !u!1 &4293538069031926048
 GameObject:
   m_ObjectHideFlags: 0
