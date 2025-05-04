@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3296284008444805662}
   - component: {fileID: 7312610347142095295}
   - component: {fileID: 3540951188297252816}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5184635621854396350}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ModelWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 7893238760642707028}
   - component: {fileID: 3276090950479692174}
   - component: {fileID: 1537076572315260767}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 4445982808486953876}
   - component: {fileID: 1661826346776341105}
   - component: {fileID: 5910926398522387082}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4185918651971854954}
   - component: {fileID: 1858087200921994955}
-  m_Layer: 10
+  - component: {fileID: 564774306079548313}
+  m_Layer: 7
   m_Name: Lily
   m_TagString: Untagged
   m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
@@ -364,14 +365,60 @@ MonoBehaviour:
   placementLayer:
     serializedVersion: 2
     m_Bits: 0
-  wallGO: {fileID: 8378620995334905399}
-  waterGO: {fileID: 1621917209436622715}
   waterLayer:
     serializedVersion: 2
     m_Bits: 512
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  WallLily: {fileID: 8378620995334905399}
+  WaterLily: {fileID: 1621917209436622715}
+--- !u!61 &564774306079548313
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542270002380604946}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.30000004, y: 0.000025063753}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.1522138, y: 0.54340786}
+  m_EdgeRadius: 0
 --- !u!1 &8378620995334905399
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +428,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1551538876950196615}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: ModelWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +464,7 @@ GameObject:
   - component: {fileID: 1510641711963995249}
   - component: {fileID: 2701394869623341498}
   - component: {fileID: 7072422548912656663}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

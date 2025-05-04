@@ -2494,6 +2494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b46af3cfd3a065469a7477a367efc3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Credit_Panel: {fileID: 7295700107584176270}
+  QuitGame_Panel: {fileID: 3738103908408993728}
 --- !u!1 &4334390462697518016
 GameObject:
   m_ObjectHideFlags: 0
@@ -4309,7 +4311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6616713143964544027
 RectTransform:
   m_ObjectHideFlags: 0

@@ -2,15 +2,15 @@
 
 public class Jumppad_Plant_Env : Plant_Base_Env
 {
-
     Vector3 placementStartOffset = Vector3.up * 0.2f;
-    protected override void OnPlacement()
+
+    protected override void PlacePlant()
     {
         TryPlaceOn(transform.position + placementStartOffset, Vector3.down, placementDistance, placementLayer, transform, Quaternion.identity);
     }
 
-    public override bool CanPlaceOn(Vector3 startpoint)
+    public override bool CanPlaceAtPosition(Vector3 startpoint)
     {
-        return CanPlaceOn(startpoint + placementStartOffset, Vector3.down, placementDistance, placementLayer, transform, Quaternion.identity);
+        return CanPlaceAtPositionInternal(startpoint + placementStartOffset, Vector3.down, placementDistance, placementLayer);
     }
 }
