@@ -23,6 +23,7 @@ public class CharacterControllerSettings : ScriptableObject
     [SerializeField] private float _jumpInputBuffering;
 
     [SerializeField] private float _jumpHeight;
+    [SerializeField] private int _superJumpHeight;
 
     [SerializeField] private float _gravityUp;
     [SerializeField] private float _gravityDown;
@@ -41,9 +42,10 @@ public class CharacterControllerSettings : ScriptableObject
     public float Acceleration => _acceleration;
     public float TopSpeed => _topSpeed;
     public float ReversingFactor => _reversingFactor;
-    
+
     public float CoyoteTime => _coyoteTime;
     public float JumpHeight => _jumpHeight;
+    public int SuperJumpHeight => _superJumpHeight;
     public float GravityUp => _gravityUp;
     public float GravityDown => _gravityDown;
     public float MaxFallSpeed => _maxFallSpeed;

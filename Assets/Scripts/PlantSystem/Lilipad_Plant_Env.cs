@@ -4,57 +4,54 @@ using UnityEngine;
 
 public class Lilipad_Plant_Env : Plant_Base_Env
 {
-    public GameObject wallGO, waterGO;
     public LayerMask waterLayer, wallLayer;
 
+    // Prefab comprises of two different lillies, disable the unneded one.
+    public GameObject WallLily;
+    public GameObject WaterLily;
+
     Vector3 waterPlacementStartOffset = Vector3.up * 0.2f;
-    protected override void OnPlacement()
+
+    protected override void PlacePlant()
     {
-        bool placed = false;
-        if (!placed)
-            placed = TryPlaceInWater();
-        if (!placed)
-            placed = TryPlaceOnWall();
+        if (!TryPlaceInWater())
+        {
+            if (!TryPlaceOnWall())
+            {
+                Debug.LogError("failed to place plant");
+            }
+        }
     }
 
-    
-    public bool TryPlaceInWater()
+    private bool TryPlaceInWater()
     {
-        if(TryPlaceOn(transform.position + waterPlacementStartOffset, Vector3.down, placementDistance, waterLayer, waterGO.transform, Quaternion.identity))
+        if (!TryPlaceOn(transform.position + waterPlacementStartOffset, Vector3.down, placementDistance, waterLayer, this.transform, Quaternion.identity))
         {
-            waterGO.SetActive(true);
-            wallGO.SetActive(false);
-            return true;
+            return false;
         }
-        return false;
+
+        // diable the unneeded gameobject
+        WallLily.gameObject.SetActive(false);
+        return true;
     }
 
-    public bool TryPlaceOnWall()
+    private bool TryPlaceOnWall()
     {
-        if (TryPlaceOn(transform.position, Vector3.right, placementDistance, wallLayer, wallGO.transform, Quaternion.identity))
+        if (!TryPlaceOn(transform.position, Vector3.right, placementDistance, wallLayer, this.transform, Quaternion.identity)
+        || TryPlaceOn(transform.position, Vector3.left, placementDistance, wallLayer, this.transform, Quaternion.Euler(0, 180, 0)))
         {
-            waterGO.SetActive(false);
-            wallGO.SetActive(true);
-            return true;
-        }
-        if(TryPlaceOn(transform.position, Vector3.left, placementDistance, wallLayer, wallGO.transform, Quaternion.Euler(0, 180, 0)))
-        {
-            waterGO.SetActive(false);
-            wallGO.SetActive(true);
-            return true;
+            return false;
         }
 
-        return false;
+        // diable the unneeded gameobject
+        WaterLily.SetActive(false);
+        return true;
     }
 
-    public override bool CanPlaceOn(Vector3 startpoint)
+    public override bool CanPlaceAtPosition(Vector3 startpoint)
     {
-        if(CanPlaceOn(startpoint + waterPlacementStartOffset, Vector3.down, placementDistance, waterLayer, waterGO.transform, Quaternion.identity) ||
-           CanPlaceOn(startpoint, Vector3.left, placementDistance, wallLayer, wallGO.transform, Quaternion.Euler(0, 180, 0)) ||
-           CanPlaceOn(startpoint, Vector3.right, placementDistance, wallLayer, wallGO.transform, Quaternion.identity))
-        {
-            return true;
-        }
-        return false;
+        return CanPlaceAtPositionInternal(startpoint + waterPlacementStartOffset, Vector3.down, placementDistance, waterLayer) ||
+           CanPlaceAtPositionInternal(startpoint, Vector3.left, placementDistance, wallLayer) ||
+           CanPlaceAtPositionInternal(startpoint, Vector3.right, placementDistance, wallLayer);
     }
 }

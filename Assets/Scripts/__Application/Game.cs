@@ -3,85 +3,67 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class App : MonoBehaviour
+public class Game : MonoBehaviour
 {
-    private InputSource _inputSource = new();
-    private List<PlantCharacterController> _plantInstances = new();
+    private readonly InputSource _inputSource = new();
     private int _currentPlantIndex;
 
     /// <summary>
     /// Add new elements at the end, remove old elements at the front
     /// </summary>
-    private List<PlantCharacterController.Breadcrump> _breadcrumps = new();
+    private readonly List<PlantCharacterController.Breadcrump> _breadcrumps = new();
 
-    // zero is not allowd, buggs out queue shift.
-    [SerializeField] private int _delay;
-
+    [SerializeField, Tooltip("Arrangement of plants to be used for Gameplay.")] private List<PlantCharacterController> _plantPreset = new();
+    [SerializeField] private Butterflycontroller _butterfly;
+    [SerializeField, Tooltip("zero is not allowd, buggs out queue shift")] private int _delay;
     [SerializeField] private bool _isPlaying = false;
     public bool IsPlaying => _isPlaying;
-
     public Vector2 SpawnPosition => Vector2.zero;
 
-    #region Singleton
-    private static App s_instance;
-
-    public static App Instance
+    #region gamestate start/stop
+    public void Start()
     {
-        get
+        _butterfly.Setup(this);
+
+        _plantPreset[0].Setup(this);
+        _plantPreset[0].gameObject.SetActive(true);
+
+        for (int i = 1; i < _plantPreset.Count; i++)
         {
-            if (s_instance == null)
-            {
-                throw new System.NullReferenceException("Application singleton not set");
-            }
-            return s_instance;
+            PlantCharacterController plant = _plantPreset[i];
+            plant.Setup(this);
+            plant.gameObject.SetActive(false);
+        }
+
+        SetPlantInputsource(_plantPreset[0]);
+        _inputSource.Enable();
+        _isPlaying = true;
+    }
+
+    public void GameOver()
+    {
+        if (_isPlaying)
+        {
+            Debug.Log("Game over!");
+            _isPlaying = false;
+            _inputSource.Disable();
+            _plantPreset[_currentPlantIndex].Stop();
         }
     }
 
-    private void Awake()
+    public void GameWon()
     {
-        if (s_instance == null)
+        if (_isPlaying)
         {
-            s_instance = this;
-            _inputSource.Enable();
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            Debug.Log("Game won!");
+            _isPlaying = false;
+            _inputSource.Disable();
+            _plantPreset[_currentPlantIndex].Stop();
         }
     }
-    #endregion 
+    #endregion gamestate start/stop
 
-    public void StartGame(PlantCombination plantCombination)
-    {
-        if (!_isPlaying)
-        {
-            _isPlaying = true;
-
-            for (int i = 0; i < _plantInstances.Count; i++)
-            {
-                Destroy(_plantInstances[i].gameObject);
-            }
-
-            _plantInstances.Clear();
-            _breadcrumps.Clear();
-            foreach (var plant in plantCombination.Plants)
-            {
-                PlantCharacterController plantInstance = Instantiate(plant);
-                _plantInstances.Add(plantInstance);
-                plantInstance.gameObject.SetActive(false);
-                plantInstance.name += _plantInstances.Count;
-            }
-            _plantInstances[0].gameObject.SetActive(true);
-            SetPlantInputsource(_plantInstances[0]);
-        }
-    }
-
-    public void StopGame()
-    {
-        _isPlaying = false;
-    }
-
+    #region Follow up system
     private void SetPlantInputsource(PlantCharacterController characterController)
     {
         _inputSource.BindCharacterController(characterController);
@@ -89,16 +71,15 @@ public class App : MonoBehaviour
 
     public bool CanAdvanceToNextPlant()
     {
-        // -2 because we can advance to the last entry in the list.
-        return _currentPlantIndex < _plantInstances.Count - 2;
+        return _currentPlantIndex < _plantPreset.Count - 1;
     }
 
     public void CurrentPlantTakeRoot()
     {
         // top queue element is active plan
-        var currentPlant = _plantInstances[_currentPlantIndex];
+        var currentPlant = _plantPreset[_currentPlantIndex];
         _currentPlantIndex++;
-        PlantCharacterController nextPlant = _plantInstances[_currentPlantIndex];
+        PlantCharacterController nextPlant = _plantPreset[_currentPlantIndex];
 
         currentPlant.TakeRoot();
         SetPlantInputsource(nextPlant);
@@ -134,7 +115,7 @@ public class App : MonoBehaviour
         // + 1 because we start to count the active plant index at 0. 
         // for the last plant we want the firstelement in the array.
         // For everyone before we want to look deeper inside.
-        if (_breadcrumps.Count > _plantInstances.Count * _delay)
+        if (_breadcrumps.Count > _plantPreset.Count * _delay)
         {
             // we add breadcrumps one by one, so a single removal keeps things neat and tidy.
             // remove oldest entry at the front
@@ -144,16 +125,17 @@ public class App : MonoBehaviour
 
     public Vector2 GetButterflyPosition()
     {
-        if (_breadcrumps.Count > _delay + 1)
+        if (_breadcrumps.Count >= _delay)
         {
             // queue peek
-            return _breadcrumps[^_delay].Position;
+            return _breadcrumps[^(_delay - 1)].Position;
         }
         else
         {
             return SpawnPosition;
         }
     }
+    #endregion Follow up system
 
 #if UNITY_EDITOR
     public void OnDrawGizmos()

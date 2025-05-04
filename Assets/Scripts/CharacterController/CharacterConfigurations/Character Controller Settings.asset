@@ -20,6 +20,7 @@ MonoBehaviour:
   _coyoteTime: 0.2
   _jumpInputBuffering: 0.2
   _jumpHeight: 5
+  _superJumpHeight: 7
   _gravityUp: -10
   _gravityDown: -15
   _maxFallSpeed: -10

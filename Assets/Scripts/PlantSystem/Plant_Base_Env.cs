@@ -1,33 +1,20 @@
 ﻿using UnityEngine;
 
-public class Plant_Base_Env : MonoBehaviour
+public abstract class Plant_Base_Env : MonoBehaviour
 {
     public Plant_Base_SO Data;
     public float placementDistance;
     public LayerMask placementLayer;
 
-   
     private void OnEnable()
     {
-        OnPlacement();
+        Debug.Log($"Spawned plan type of {this.GetType().Name} GO: {name}");
+        PlacePlant();
     }
 
     [Button]
-    public virtual void OnPlacementButton()
-    {
-        OnPlacement();
-    }
-
-    [Button]
-    public virtual void OnPlacementDeath()
-    {
-        OnPlacement();
-    }
-
-    protected virtual void OnPlacement()
-    {
-
-    }
+    protected abstract void PlacePlant();
+    public abstract bool CanPlaceAtPosition(Vector3 startpoint);
 
     public bool TryPlaceOn(Vector3 startpoint, Vector3 dir, float maxDistance, LayerMask placementLayer, Transform obj, Quaternion rotation)
     {
@@ -42,11 +29,8 @@ public class Plant_Base_Env : MonoBehaviour
         }
         return false;
     }
-    public virtual bool CanPlaceOn(Vector3 startpoint)
-    {
-        return true;
-    }
-    protected virtual bool CanPlaceOn(Vector3 startpoint, Vector3 dir, float maxDistance, LayerMask placementLayer, Transform obj, Quaternion rotation)
+
+    protected bool CanPlaceAtPositionInternal(Vector3 startpoint, Vector3 dir, float maxDistance, LayerMask placementLayer)
     {
         var result = ExtensionMethods.GetNextHitpointOnTerrain(startpoint, dir, maxDistance, placementLayer);
         if (result != startpoint)
@@ -55,9 +39,4 @@ public class Plant_Base_Env : MonoBehaviour
         }
         return false;
     }
-
-
-    //will die because of lilypad or death water...
 }
-
-

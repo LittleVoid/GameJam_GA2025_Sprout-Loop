@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class Butterflycontroller : MonoBehaviour
 {
+    private Game _app;
+
+    public void Setup(Game app)
+    {
+        _app = app;
+    }
+
     public void FixedUpdate()
     {
-        if (App.Instance.IsPlaying)
-            this.transform.position = App.Instance.GetButterflyPosition();
+        if (_app.IsPlaying)
+            this.transform.position = _app.GetButterflyPosition();
     }
 }

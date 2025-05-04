@@ -46,11 +46,13 @@ public class PlantCharacterController : MonoBehaviour
 
     #region References
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private Plant_Base_Env _plant;
+    [SerializeField] private Plant_Base_Env _plantPrefab;
     [SerializeField] private CharacterControllerSettings _settings;
     #endregion References   
 
     #region Bookkeeping    
+    private Game _app;
+
     [Header("Serialized for debug purposes. DO NOT mess around with this.")]
     [SerializeField] private Characterstates _characterstate = Characterstates.GroundedLocomotion;
 
@@ -71,11 +73,11 @@ public class PlantCharacterController : MonoBehaviour
     public bool JumpWasPressed => _jumpBuffer > 0f;
     public bool RootWasPressed => _rootBuffer > 0f;
     public bool CoyoteTime => _coyoteTime > 0f;
-
     #endregion Bookkeeping
 
-    void Start()
+    public void Setup(Game app)
     {
+        _app = app;
         _rb.freezeRotation = true;
         _rb.gravityScale = 0;
     }
@@ -96,20 +98,46 @@ public class PlantCharacterController : MonoBehaviour
         _rootBuffer = _settings.InputBufferTime;
     }
 
-    internal void TakeRoot()
+    public void KillPlant()
+    {
+        _app.GameOver();
+        Stop();
+
+        Characterstates old = _characterstate;
+        _characterstate = Characterstates.Dead;
+
+        OnCharacterStateChanged?.Invoke(new(old, _characterstate));
+    }
+
+    public void TryTakeRootOnWaterOrKillplant()
+    {
+        // case we hit something we shouldn't have.
+        if (!_app.CanAdvanceToNextPlant())
+        {
+            KillPlant();
+        }
+        else
+        {
+            _app.CurrentPlantTakeRoot();
+        }
+    }
+
+    public void TakeRoot()
     {
         // whatever we need to do to take root. Mainly disabling behaviour script... ?
         Debug.Log($"{this.name} took root");
-        this.enabled = false;
-        _plant.OnPlacementButton();
+        gameObject.SetActive(false);
 
-        _rb.simulated = false;
+        Characterstates old = _characterstate;
+        _characterstate = Characterstates.Rooted;
+
+        OnCharacterStateChanged?.Invoke(new(old, _characterstate));
+        Instantiate(_plantPrefab, transform.position, transform.rotation);
     }
 
     internal void StartFromBreadcrump(Breadcrump breadcrump)
     {
         Debug.Log($"{this.name} started at {breadcrump.Position} with velocity {breadcrump.Velocity} in state {breadcrump.Characterstate}");
-        this.enabled = true;
         this.gameObject.SetActive(true);
 
         _rb.linearVelocity = breadcrump.Velocity;
@@ -130,7 +158,7 @@ public class PlantCharacterController : MonoBehaviour
     {
         HandleStateChanges();
 
-        App.Instance.PushBreadcrump(
+        _app.PushBreadcrump(
             new Breadcrump(
                 position: _rb.position,
                 velocity: _rb.linearVelocity,
@@ -179,12 +207,13 @@ public class PlantCharacterController : MonoBehaviour
                 break;
 
             case Characterstates.Rooted:
-                this.enabled = false;
-                _rb.linearVelocity = Vector2.zero;
+                gameObject.SetActive(false);
                 break;
 
             case Characterstates.Dead:
-                this.enabled = false;
+                // apply downward acceleration. Ensures we sink or do whatever when dead.
+                _rb.linearVelocityY = Mathf.MoveTowards(_rb.linearVelocityY, _settings.MaxFallSpeed, Mathf.Abs(_settings.GravityDown * Time.deltaTime));
+                _rb.linearVelocityX = Mathf.MoveTowards(_rb.linearVelocityX, 0, Time.deltaTime * _settings.Acceleration);
                 break;
 
             default:
@@ -201,12 +230,13 @@ public class PlantCharacterController : MonoBehaviour
 
         bool climbColliderVisible = Physics2D.OverlapBox(transform.position, new Vector2(.5f, 1), 0, _climbLayerMask);
 
-        if (App.Instance.CanAdvanceToNextPlant() && RootWasPressed)
+        if (_app.CanAdvanceToNextPlant() && RootWasPressed)
         {
-            if (_plant.CanPlaceOn(transform.position))
+            if (_plantPrefab.CanPlaceAtPosition(transform.position))
             {
-                _characterstate = Characterstates.Rooted;
-                OnCharacterStateChanged?.Invoke(new(oldState, _characterstate));
+                _rootBuffer = -1f;
+                Debug.Log("wood needed.");
+                _app.CurrentPlantTakeRoot();
                 return;
             }
             else
@@ -284,6 +314,9 @@ public class PlantCharacterController : MonoBehaviour
                 }
                 break;
 
+            case Characterstates.Dead:
+                break;
+
             default:
                 Debug.LogWarning($"Unhandled input in state: {_characterstate}");
                 return;
@@ -305,4 +338,28 @@ public class PlantCharacterController : MonoBehaviour
         float rawVelocity = Mathf.Sqrt(-2 * _settings.JumpHeight * _settings.GravityUp);
         _rb.linearVelocityY = rawVelocity;
     }
+
+    internal void SuperJump()
+    {
+        _jumpBuffer = -1f;
+        _coyoteTime = -1f;
+
+        // without double jump we don't need to worry about upward velocity correction...
+        float rawVelocity = Mathf.Sqrt(-2 * _settings.SuperJumpHeight * _settings.GravityUp);
+        _rb.linearVelocityY = rawVelocity;
+
+        var old = _characterstate;
+        _characterstate = Characterstates.Airborne;
+
+        OnCharacterStateChanged?.Invoke(new(old, _characterstate));
+    }
+
+    internal void Stop()
+    {
+        _movementInput = Vector2.zero;
+        _jumpBuffer = -1f;
+        _coyoteTime = -1f;
+        _rootBuffer = -1f;
+    }
+
 }
