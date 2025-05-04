@@ -2,31 +2,12 @@
 
 public class JumpTrigger : MonoBehaviour
 {
-    [SerializeField] private TriggerArea area;
-    public float Force = 10;
-    private void OnEnable()
-    {
-        area.onTriggerEnter += ForceJump;
-    }
+    [SerializeField] private LayerMask _playerLayerMask;
 
-    private void OnDisable()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        area.onTriggerEnter -= ForceJump;
-    }
+        if (1 << collision.gameObject.layer != _playerLayerMask) { return; }
 
-    void ForceJump(GameObject target)
-    {
-        //Todo fix for correct player when finished
-        if(target.TryGetComponent<Rigidbody>(out Rigidbody rig))
-        {
-            var velocity = rig.linearVelocity;
-            velocity.y = Force;
-            rig.linearVelocity = velocity;
-        }
-    }
-
-    private void Reset()
-    {
-        area = GetComponent<TriggerArea>();
+        collision.gameObject.GetComponent<PlantCharacterController>().SuperJump();
     }
 }

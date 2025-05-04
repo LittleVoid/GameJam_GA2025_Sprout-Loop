@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -120,24 +121,17 @@ public static class ExtensionMethods
         );
     }
 
-    public static Vector3 GetNextHitpointOnTerrain(Vector3 start, Vector3 dir, float length,LayerMask layer)
+    public static Vector3 GetNextHitpointOnTerrain(Vector3 start, Vector3 dir, float length, LayerMask layer)
     {
-        var hits = Physics.RaycastAll(start,dir,length,layer);
+        var hits = Physics2D.RaycastAll(start, dir, layer, layer).ToList();
 
-        List<RaycastHit> filteredResult = new List<RaycastHit>();
-        for (int i = 0; i < hits.Length; i++)
+        hits.Sort((a, b) => a.distance.CompareTo(b.distance));
+
+        if (hits.Count > 0)
         {
-            filteredResult.Add(hits[i]);
-        }
-
-        filteredResult.Sort((a, b) => a.distance.CompareTo(b.distance));
-
-        if (filteredResult.Count > 0)
-        {
-            return filteredResult[0].point;
+            return hits[0].point;
         }
 
         return start;
     }
-
 }

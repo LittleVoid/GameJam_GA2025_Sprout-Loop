@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class UI_StartMenu : MonoBehaviour
 {
-    GameObject Credit_Panel, QuitGame_Panel;
+    [SerializeField] GameObject Credit_Panel, QuitGame_Panel;
 
     private void Awake()
     {
-        Credit_Panel = transform.Find("Credit_Panel").gameObject;
-        QuitGame_Panel = transform.Find("QuitGame_Panel").gameObject;
         Credit_Panel.SetActive(false);
         QuitGame_Panel.SetActive(false);
     }
@@ -41,6 +39,7 @@ public class UI_StartMenu : MonoBehaviour
     }
     public void QuitGame()
     {
+        Debug.Log("quit");
         Application.Quit();
     }
 }

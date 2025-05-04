@@ -13,6 +13,6 @@ public class Plant_Base_SO : ScriptableObject {
 
     public virtual bool CanPlace(Vector3 pos)
     {
-        return Prefab.GetComponent<Plant_Base_Env>().CanPlaceOn(pos);
+        return Prefab.GetComponent<Plant_Base_Env>().CanPlaceAtPosition(pos);
     }
 }
