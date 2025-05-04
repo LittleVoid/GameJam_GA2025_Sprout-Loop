@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlantAnimator : MonoBehaviour
 {
-    [SerializeField] private string _running = "isRunning";
+    [SerializeField] private string _running = "IsRunning";
     [SerializeField] private string _airborne = "IsAirborne";
     [SerializeField] private string _climbing = "IsClimbing";
     [SerializeField] private PlantCharacterController _plantCharacterController;
@@ -13,11 +13,11 @@ public class PlantAnimator : MonoBehaviour
 
     void Update()
     {
-        if (Mathf.Abs(_rb.linearVelocityX) > 0f)
+        if (_rb.linearVelocityX > 0f)
         {
             _amature.rotation = Quaternion.Euler(0, 90, 0);
         }
-        else
+        else if (_rb.linearVelocityX < 0f)
         {
             _amature.rotation = Quaternion.Euler(0, -90, 0);
         }
@@ -25,7 +25,8 @@ public class PlantAnimator : MonoBehaviour
         switch (_plantCharacterController.State)
         {
             case PlantCharacterController.Characterstates.GroundedLocomotion:
-                _animator.SetBool(_running, Mathf.Abs(_rb.linearVelocityX) > 0f);
+                bool value = Mathf.Abs(_rb.linearVelocityX) > 0f;
+                _animator.SetBool(_running, value);
                 _animator.SetBool(_airborne, false);
                 _animator.SetBool(_climbing, false);
                 break;

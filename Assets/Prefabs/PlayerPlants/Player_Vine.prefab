@@ -160,6 +160,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6244898476973127129}
     - target: {fileID: 5575346112093306758, guid: 705ed30a1d3f03f4cab69df404b51738, type: 3}
+      propertyPath: _running
+      value: IsRunning
+      objectReference: {fileID: 0}
+    - target: {fileID: 5575346112093306758, guid: 705ed30a1d3f03f4cab69df404b51738, type: 3}
       propertyPath: _animator
       value: 
       objectReference: {fileID: 7607562676150109407}
