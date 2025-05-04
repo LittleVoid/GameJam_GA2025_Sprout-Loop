@@ -14,15 +14,40 @@ public class Game : MonoBehaviour
     private readonly List<PlantCharacterController.Breadcrump> _breadcrumps = new();
 
     [SerializeField, Tooltip("Arrangement of plants to be used for Gameplay.")] private List<PlantCharacterController> _plantPreset = new();
+    [SerializeField] private float[] _plantTimes;
     [SerializeField] private Butterflycontroller _butterfly;
+    [SerializeField] private UI_InGameScript _ingameUI;
     [SerializeField, Tooltip("zero is not allowd, buggs out queue shift")] private int _delay;
     [SerializeField] private bool _isPlaying = false;
     public bool IsPlaying => _isPlaying;
     public Vector2 SpawnPosition => Vector2.zero;
 
+    private float _timeLeft;
+
+    private void Update()
+    {
+        _timeLeft -= Time.deltaTime;
+        if (_timeLeft <= 0f)
+        {
+            if (CanAdvanceToNextPlant() && _plantPreset[_currentPlantIndex].CanTakeRoot())
+            {
+                CurrentPlantTakeRoot();
+            }
+            else
+            {
+                GameOver();
+                _timeLeft = 0f;
+            }
+        }
+        _ingameUI.UpdateTimer(_timeLeft);
+    }
+
     #region gamestate start/stop
     public void Start()
     {
+        _timeLeft = _plantTimes[0];
+        _ingameUI.StartNextLevel(_timeLeft);
+
         _butterfly.Setup(this);
 
         _plantPreset[0].Setup(this);
@@ -44,7 +69,7 @@ public class Game : MonoBehaviour
     {
         if (_isPlaying)
         {
-            Debug.Log("Game over!");
+            _ingameUI.OpenLooseScreen("you dried");
             _isPlaying = false;
             _inputSource.Disable();
             _plantPreset[_currentPlantIndex].Stop();
@@ -55,7 +80,7 @@ public class Game : MonoBehaviour
     {
         if (_isPlaying)
         {
-            Debug.Log("Game won!");
+            _ingameUI.OpenWinScreen("you bloomed");
             _isPlaying = false;
             _inputSource.Disable();
             _plantPreset[_currentPlantIndex].Stop();
@@ -83,6 +108,9 @@ public class Game : MonoBehaviour
 
         currentPlant.TakeRoot();
         SetPlantInputsource(nextPlant);
+
+        _timeLeft = _plantTimes[_currentPlantIndex];
+        _ingameUI.SpawnNextPlant(_timeLeft);
 
         if (_breadcrumps.Count > _delay + 1)
         {

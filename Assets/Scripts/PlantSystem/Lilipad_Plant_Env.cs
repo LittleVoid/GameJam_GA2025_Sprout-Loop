@@ -14,13 +14,15 @@ public class Lilipad_Plant_Env : Plant_Base_Env
 
     protected override void PlacePlant()
     {
-        if (!TryPlaceInWater())
+        if (TryPlaceInWater())
         {
-            if (!TryPlaceOnWall())
-            {
-                Debug.LogError("failed to place plant");
-            }
+            return;
         }
+        if (TryPlaceOnWall())
+        {
+            return;
+        }
+        Debug.LogError("failed to place plant");
     }
 
     private bool TryPlaceInWater()
@@ -37,8 +39,8 @@ public class Lilipad_Plant_Env : Plant_Base_Env
 
     private bool TryPlaceOnWall()
     {
-        if (!TryPlaceOn(transform.position, Vector3.right, placementDistance, wallLayer, this.transform, Quaternion.identity)
-        || TryPlaceOn(transform.position, Vector3.left, placementDistance, wallLayer, this.transform, Quaternion.Euler(0, 180, 0)))
+        if (!(TryPlaceOn(transform.position, Vector3.right, placementDistance, wallLayer, this.transform, Quaternion.identity)
+        || TryPlaceOn(transform.position, Vector3.left, placementDistance, wallLayer, this.transform, Quaternion.Euler(0, 180, 0))))
         {
             return false;
         }

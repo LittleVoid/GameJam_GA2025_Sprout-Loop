@@ -187,7 +187,7 @@ public class PlantCharacterController : MonoBehaviour
                     if (_movementInput.x != 0)
                     {
                         float sign = Mathf.Sign(_movementInput.x);
-                        _rb.linearVelocityX = Mathf.MoveTowards(_rb.linearVelocityX, _settings.TopSpeed * sign, Time.deltaTime * _settings.AirFriction);
+                        _rb.linearVelocityX = Mathf.MoveTowards(_rb.linearVelocityX, _settings.TopSpeed * sign, Time.deltaTime * _settings.AirFriction * _settings.Acceleration);
                     }
 
                     // apply downward acceleration
@@ -362,4 +362,8 @@ public class PlantCharacterController : MonoBehaviour
         _rootBuffer = -1f;
     }
 
+    public bool CanTakeRoot()
+    {
+        return _plantPrefab.CanPlaceAtPosition(transform.position);
+    }
 }
