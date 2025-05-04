@@ -16,16 +16,16 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (audioManager != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-            Debug.Assert(audioManager != null, "NO UI FOUND!!!");
-        }
-        DontDestroyOnLoad(this.gameObject);
+        //if (audioManager != null)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //else
+        //{
+        //    audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        //    Debug.Assert(audioManager != null, "NO UI FOUND!!!");
+        //}
+        //DontDestroyOnLoad(this.gameObject);
 
         backgroundPlayer = transform.Find("BG_Player").GetComponent<AudioSource>();
         SFXPlayer = transform.Find("SFX_Player").GetComponent<AudioSource>();

@@ -22,16 +22,16 @@ public class UI_InGameScript : MonoBehaviour
 
     void Awake()
     {
-        if (inGameUI != null)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            inGameUI = GameObject.Find("UI_InGame").GetComponent<UI_InGameScript>();
-            Debug.Assert(inGameUI != null, "NO UI FOUND!!!");
-        }
-        DontDestroyOnLoad(this.gameObject);
+        //if (inGameUI != null)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //else
+        //{
+        //    inGameUI = GameObject.Find("UI_InGame").GetComponent<UI_InGameScript>();
+        //    Debug.Assert(inGameUI != null, "NO UI FOUND!!!");
+        //}
+        //DontDestroyOnLoad(this.gameObject);
 
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
