@@ -169,8 +169,8 @@ MonoBehaviour:
   placementLayer:
     serializedVersion: 2
     m_Bits: 128
-  MaxLength: 10
-  Growspeed: 1
+  MaxLength: 15
+  Growspeed: 1.5
   GrowObject: {fileID: 6693662380336152082}
 --- !u!1 &6693662380336152082
 GameObject:
