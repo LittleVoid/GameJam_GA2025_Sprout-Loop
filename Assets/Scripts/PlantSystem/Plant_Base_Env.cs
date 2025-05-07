@@ -2,20 +2,12 @@
 
 public abstract class Plant_Base_Env : MonoBehaviour
 {
-    public AudioManager audioManager;
-
-
     public Plant_Base_SO Data;
     public float placementDistance;
     public LayerMask placementLayer;
 
     private void OnEnable()
     {
-        if (!audioManager)
-        {
-            audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-        }
-
         Debug.Log($"Spawned plan type of {this.GetType().Name} GO: {name}");
         PlacePlant();
     }

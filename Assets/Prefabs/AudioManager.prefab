@@ -175,6 +175,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2be55089d3d2a4ca97dc9da9baafd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundPlayer: {fileID: 2568453286722478785}
+  SFXPlayer: {fileID: 2155030087059633908}
   MainMenu: {fileID: 8300000, guid: 90174465ff726964ab9253a52e5011de, type: 3}
   Level: {fileID: 8300000, guid: d7703783bfbeb624ea1411469624d478, type: 3}
   PauseMenu: {fileID: 8300000, guid: 6512d005d961aeb45bf62b0e3f7984cb, type: 3}

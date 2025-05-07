@@ -6,53 +6,48 @@ using UnityEditor.SearchService;
 
 public class UI_StartMenu : MonoBehaviour
 {
-    AudioManager audioManager;
-
     [SerializeField] GameObject Credit_Panel, QuitGame_Panel;
 
-
-    private void Awake()
+    private void Start()
     {
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-
         Credit_Panel.SetActive(false);
         QuitGame_Panel.SetActive(false);
 
-        audioManager.SelectBackgroundMusic("MainMenu");
+        AudioManager.Instance.SelectBackgroundMusic("MainMenu");
     }
 
     public void OpenCredits()
     {
-        audioManager.PlaySFX("Click");
+        AudioManager.Instance.PlaySFX("Click");
         Credit_Panel.SetActive(true);
     }
 
     public void CloseCredits()
     {
-        audioManager.PlaySFX("Click");
+        AudioManager.Instance.PlaySFX("Click");
         Credit_Panel.SetActive(false);
     }
 
     public void StartGame()
     {
-        audioManager.SelectBackgroundMusic("Level");
+        AudioManager.Instance.SelectBackgroundMusic("Level");
         SceneManager.LoadScene(1);
     }
 
     public void OpenQuitGameDialogue()
     {
-        audioManager.PlaySFX("Click");
+        AudioManager.Instance.PlaySFX("Click");
         QuitGame_Panel.SetActive(true);
     }
 
     public void CloseQuitGameDialogue()
     {
-        audioManager.PlaySFX("Click");
+        AudioManager.Instance.PlaySFX("Click");
         QuitGame_Panel.SetActive(false);
     }
     public void QuitGame()
     {
-        audioManager.PlaySFX("Click");
+        AudioManager.Instance.PlaySFX("Click");
         Debug.Log("quit");
         Application.Quit();
     }

@@ -7,30 +7,36 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioManager audioManager;
-    private AudioSource backgroundPlayer, SFXPlayer;
+    private static AudioManager audioManager;
+    [SerializeField] AudioSource backgroundPlayer, SFXPlayer;
 
     [SerializeField] AudioClip MainMenu, Level, PauseMenu, Win;
     [SerializeField] List<AudioClip> Clicks;
     [SerializeField] AudioClip Splash, Jump, Grow, Sprout, Whoosh, Victory, GameOver;
 
+    public static AudioManager Instance => audioManager;
+
     private void Awake()
     {
-        //if (audioManager != null)
-        //{
-        //    Destroy(this.gameObject);
-        //}
-        //else
-        //{
-        //    audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-        //    Debug.Assert(audioManager != null, "NO UI FOUND!!!");
-        //}
-        //DontDestroyOnLoad(this.gameObject);
+        if (audioManager != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            audioManager = this;
+            Debug.Assert(audioManager != null, "NO UI FOUND!!!");
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
 
-        backgroundPlayer = transform.Find("BG_Player").GetComponent<AudioSource>();
-        SFXPlayer = transform.Find("SFX_Player").GetComponent<AudioSource>();
+    private void Start()
+    {
+        //backgroundPlayer = transform.Find("BG_Player").GetComponent<AudioSource>();
+        //SFXPlayer = transform.Find("SFX_Player").GetComponent<AudioSource>();
 
         backgroundPlayer.clip = MainMenu;
+      
     }
 
     public void SelectBackgroundMusic(string input)
@@ -55,6 +61,7 @@ public class AudioManager : MonoBehaviour
             default:
                 break;
         }
+        backgroundPlayer.Play();
     }
 
     public void PlaySFX(string input)
